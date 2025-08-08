@@ -1,3 +1,4 @@
+/*
 body {
   margin: 0;
   font-family: sans-serif;
@@ -66,4 +67,179 @@ body {
   font-weight: bold;
   border-radius: 4px;
   cursor: pointer;
+}
+*/
+body {
+  margin: 0;
+  font-family: sans-serif;
+  background: #121212;
+  color: #eee;
+}
+
+#title {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1.5rem;
+  text-align: center;
+  margin: 20px 0 10px;
+  color: #00ffff;
+  text-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff;
+}
+
+#navbar {
+  height: 60px;
+  background-color: #222;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 20px;
+  font-size: 1.2em;
+}
+
+#main {
+  display: flex;
+  height: calc(100vh - 60px);
+}
+
+#shader-canvas {
+  flex: 0 0 60%; 
+  background: black;
+  border-right: 2px solid #333;
+  display: block;
+  width: 60%;
+  height: 100%;
+}
+
+#editor-panel {
+  flex: 0 0 40%;
+  width: 40%;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  background-color: #1e1e1e;
+  box-sizing: border-box;
+}
+
+#code-editor {
+  flex: 1;
+  width: 100%;
+  resize: none;
+  padding: 10px;
+  font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+  font-size: 14px;
+  background-color: #111;
+  color: #0f0;
+  border: none;
+  outline: none;
+  margin-bottom: 10px;
+  box-sizing: border-box;
+}
+
+#run-button {
+  padding: 12px;
+  background-color: #00ff90;
+  color: black;
+  border: none;
+  font-weight: bold;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+#run-button:hover {
+  background-color: #00cc73;
+}
+
+#run-button:active {
+  background-color: #009954;
+}
+
+@media screen and (max-width: 768px) {
+  #main {
+    flex-direction: column;
+    height: auto;
+    min-height: calc(100vh - 60px);
+  }
+
+  #shader-canvas {
+    flex: none;
+    width: 100%;
+    height: 100vh;
+    border-right: none;
+    border-bottom: 2px solid #333;
+  }
+
+  #editor-panel {
+    flex: none;
+    width: 100%;
+    min-height: 50vh;
+    padding: 15px;
+  }
+
+  #code-editor {
+    min-height: 300px;
+    font-size: 16px;
+  }
+
+  #run-button {
+    padding: 15px;
+    font-size: 16px;
+    margin-bottom: 20px;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  #title {
+    font-size: 1.2rem;
+    margin: 15px 0 8px;
+  }
+
+  #navbar {
+    height: 50px;
+    padding: 0 15px;
+    font-size: 1rem;
+  }
+
+  #main {
+    height: auto;
+    min-height: calc(100vh - 50px);
+  }
+
+  #shader-canvas {
+    height: 100vh;
+  }
+
+  #editor-panel {
+    padding: 10px;
+    min-height: 60vh;
+  }
+
+  #code-editor {
+    font-size: 14px;
+    padding: 8px;
+    min-height: 250px;
+  }
+
+  #run-button {
+    padding: 12px;
+    font-size: 14px;
+  }
+}
+
+@media screen and (max-width: 768px) and (orientation: landscape) {
+  #shader-canvas {
+    height: 100vh;
+  }
+  
+  #editor-panel {
+    min-height: 40vh;
+  }
+}
+
+#shader-canvas {
+  object-fit: contain;
 }
