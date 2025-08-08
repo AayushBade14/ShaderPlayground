@@ -2,7 +2,7 @@
 
 ### A playground to experiment with GLSL-Shaders.
 
-[!Shader-Playground-DEMO]("./demo.png")
+[!Shader-Playground-DEMO](demo.png)
 
 ## Features:
 ### 1. Canvas - to see output of your fragment shader
