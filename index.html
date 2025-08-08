@@ -2,14 +2,20 @@
 <html>
   <head>
     <title>Shader-Playground</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap" rel="stylesheet">
   </head>
   <body>
     <div id="app">
-      <nav id="navbar"></nav>
+      <nav id="navbar">
+        <h1 id="title">Shader Playground</h1>
+      </nav>
       <div id="main">
         <canvas id="shader-canvas"></canvas>
-        <textarea id="code-editor"></textarea>
-        <button id="run-button">RUN-SHADER</button>
+        <div id="editor-panel">
+          <textarea id="code-editor"></textarea>
+          <button id="run-button">RUN-SHADER</button>
+        </div>
       </div>
     </div>
   </body>
