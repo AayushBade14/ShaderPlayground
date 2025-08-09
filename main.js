@@ -127,6 +127,10 @@ function initGL() {
   // get webgl context
   gl = canvas.getContext("webgl2");
   
+  // resize canvas according to css styling
+  canvas.width = canvas.clientWidth;
+  canvas.height = canvas.clientHeight;
+
   // setting code for codeEditor initially
   codeEditor.value = fragmentShaderSource;
 
