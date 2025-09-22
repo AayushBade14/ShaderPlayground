@@ -49,15 +49,69 @@ uniform float uTime; // get time
 uniform vec2 uResolution; // get canvas resolution
 uniform vec2 uMouse; // get mouse position
 
-void main(){
-  vec2 st = gl_FragCoord.xy/uResolution; // normalized fragment coordinates
-  vec2 mouse = uMouse/uResolution; // normalized mouse position
+float sdSphere(vec3 p, float r){
+  return length(p) - r;
+}
 
-  vec3 color = vec3(1.0);
+float map(vec3 p){
+  return sdSphere(p, 1.0);
+}
+
+float march(vec3 ro, vec3 rd){
+  float t = 0.0;
+  for(int i = 0; i < 100; i++){
+    vec3 p = ro + t*rd;
+    float d = map(p);
+    if(d < 0.001) return t;
+    t += d;
+    if(t > 100.0) break;
+  }
+  return -1.0;
+}
+
+vec3 getNormal(vec3 p){
+  float e = 0.001;
+  float x = map(p + vec3(e,0.0,0.0)) - map(p - vec3(e,0.0,0.0));
+  float y = map(p + vec3(0.0,e,0.0)) - map(p - vec3(0.0,e,0.0));
+  float z = map(p + vec3(0.0,0.0,e)) - map(p - vec3(0.0,0.0,e));
+  return normalize(vec3(x,y,z));
+}
+
+void main(){
+  float aspect = uResolution.x/uResolution.y; // aspect ratio
+  vec2 st = gl_FragCoord.xy/uResolution; // normalized fragment coordinates
+  vec2 mouse = uMouse/uResolution; // normalized mouse positions
+
+  vec2 uv = st*2.0 - 1.0;
+  uv.x *= aspect;
   
-  // your code here
-  
-  fragColor = vec4(Col,1.0);
+  vec3 ro = vec3(0.0,0.0,3.0);
+  vec3 rd = vec3(uv, -1.0);
+  vec3 lp = vec3(2.0*sin(uTime),2.0,2.0*cos(uTime));
+
+  float t = march(ro, rd);
+  if(t > 0.0){
+    vec3 p = ro + t*rd;
+    vec3 n = getNormal(p);
+    vec3 l = normalize(lp - p);
+    vec3 v = normalize(ro - p);
+    vec3 r = reflect(-l,n);
+    
+    float diff = max(dot(l,n),0.0);
+    float spec = pow(max(dot(r,v),0.0),32.0);
+    float amb = 0.1;
+    float phong = amb + diff + spec;
+    
+    vec3 color = vec3(1.0,0.4,0.0);
+    color *= phong;
+    fragColor = vec4(color,1.0);
+  }
+  else{
+    vec3 c1 = vec3(0.0,0.0,0.3);
+    vec3 c2 = vec3(0.2,0.2,0.5);
+    vec3 color = mix(c1,c2,st.y);
+    fragColor = vec4(color,1.0);
+  }
 }
 `; 
 
