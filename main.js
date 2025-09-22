@@ -88,7 +88,7 @@ void main(){
   vec3 ro = vec3(0.0,0.0,3.0);
   vec3 rd = vec3(uv, -1.0);
   vec3 lp = vec3(2.0*sin(uTime),2.0,2.0*cos(uTime));
-
+  // using raymarching
   float t = march(ro, rd);
   if(t > 0.0){
     vec3 p = ro + t*rd;
